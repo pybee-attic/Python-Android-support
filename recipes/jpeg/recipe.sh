@@ -11,7 +11,7 @@ function prebuild_jpeg() {
 }
 
 function build_jpeg() {
-	cd $SRC_PATH/jni
+	cd $BUILD_PATH/jni
 	push_arm
 	try ndk-build V=1 jpeg
 	pop_arm
