@@ -130,7 +130,7 @@ function error() {
 }
 
 function debug() {
-	echo -e "$CGRAY"$@"$CRESET";
+	echo -e $@;
 }
 
 function get_directory() {
@@ -191,9 +191,9 @@ function push_arm() {
     elif [ "X${ANDROIDNDKVER:0:2}" == "Xr7" ] || [ "X${ANDROIDNDKVER:0:2}" == "Xr8" ]; then
         export TOOLCHAIN_PREFIX=arm-linux-androideabi
         export TOOLCHAIN_VERSION=4.4.3
-    elif  [ "X${ANDROIDNDKVER:0:2}" == "Xr9" ]; then
-            export TOOLCHAIN_PREFIX=arm-linux-androideabi
-            export TOOLCHAIN_VERSION=4.8
+    elif  [ "X${ANDROIDNDKVER:0:2}" == "Xr9" ] || [ "X${ANDROIDNDKVER:0:3}" == "Xr10" ]; then
+        export TOOLCHAIN_PREFIX=arm-linux-androideabi
+        export TOOLCHAIN_VERSION=4.8
     else
         echo "Error: Please report issue to enable support for newer ndk."
         exit 1
@@ -793,10 +793,9 @@ function run_distribute() {
 	try rm -f "$DIST_PATH"/private/lib/libpython2.7.so
 	try rm -rf "$DIST_PATH"/private/lib/pkgconfig
 	try cd "$DIST_PATH"/private/lib/python2.7
-	try find . | grep -E '*\.(py|pyc|so\.o|so\.a|so\.libs)$' | xargs rm
+	try find . | grep -E '\.(py|pyc|so\.o|so\.a|so\.libs)$' | xargs rm
 
 	# we are sure that all of theses will be never used on android (well...)
-	try rm -rf ctypes
 	try rm -rf lib2to3
 	try rm -rf idlelib
 	try rm -rf config/libpython*.a
