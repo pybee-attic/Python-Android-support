@@ -39,25 +39,28 @@ Global overview
 
     More details at http://developer.android.com/sdk/index.html
 
-#. Add the Android SDK and NDK tools to your path:
+#. Add the Android SDK tools to your path:
 
-#. Launch "android", and download latest Android platform, here API 14, which would be Android 4.0
+#. Launch "android", and make sure you have all the necessary parts of the SDK. You
+   can do this using the graphical interface, or using the command line::
+
+    $ android update sdk -u -a -t android-14
 
 #. Export the following environment variables::
 
-    export ANDROIDSDK="/path/to/android/android-sdk-<platform>"
-    export ANDROIDNDK="/path/to/android/android-ndk-r10b"
+    $ export ANDROIDSDK="/path/to/android/android-sdk-<platform>"
+    $ export ANDROIDNDK="/path/to/android/android-ndk-r10b"
 
     (Of course correct the paths mentioned in ANDROIDSDK and ANDROIDNDK)
 
 #. Clone Python-Android-support::
 
-    git clone git://github.com/kivy/Python-Android-support
+    $ git clone git://github.com/kivy/Python-Android-support
 
 #. Build a distribution with OpenSSL module, PIL and Kivy::
 
-    cd Python-Android-support
-    ./build.sh
+    $ cd Python-Android-support
+    $ ./build.sh
 
    This should:
 

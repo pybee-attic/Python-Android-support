@@ -97,12 +97,6 @@ function build_python() {
 	echo $MAKE HOSTPYTHON=$BUILD_python/hostpython HOSTPGEN=$BUILD_python/hostpgen CROSS_COMPILE_TARGET=yes INSTSONAME=libpython2.7.so
 	cp HOSTPYTHON=$BUILD_python/hostpython python
 
-	# FIXME, the first time, we got a error at:
-	# python$EXE ../../Tools/scripts/h2py.py -i '(u_long)' /usr/include/netinet/in.h
-    # /home/tito/code/python-for-android/build/python/Python-2.7.2/python: 1: Syntax error: word unexpected (expecting ")")
-	# because at this time, python is arm, not x86. even that, why /usr/include/netinet/in.h is used ?
-	# check if we can avoid this part.
-
 	debug 'Install...'
 	$MAKE install HOSTPYTHON=$BUILD_python/hostpython HOSTPGEN=$BUILD_python/hostpgen CROSS_COMPILE_TARGET=yes INSTSONAME=libpython2.7.so
 	pop_arm
@@ -113,8 +107,6 @@ function build_python() {
 		try cp $RECIPE_python/patches/_scproxy.py $BUILD_PATH/python-install/lib/python2.7/
 	fi
 	try cp $BUILD_hostpython/hostpython $HOSTPYTHON
-	try mkdir -p $LIBS_PATH/$ARCH/
-	try cp libpython2.7.so $LIBS_PATH/$ARCH/
 
 	# reduce python
 	rm -rf "$BUILD_PATH/python-install/lib/python2.7/test"
@@ -135,6 +127,8 @@ function postbuild_python() {
 	# Build zip file containing the libs.
 	# the config and site-packages directories must be preserved.
 	pushd $BUILD_PATH/python-install/lib/python2.7
+
+	try cp $BUILD_python/libpython2.7.so $LIBS_PATH/$ARCH/
 
 	debug 'Remove Python source files'
 	try find . | grep -E '\.(py|pyc|so\.o|so\.a|so\.libs)$' | xargs rm

@@ -36,8 +36,12 @@ function build_rubicon() {
     # make libs/rubicon.jar
 
     # Build JNI component
-    # pushd jni
-    # ndk-build
+
+    cd $JNI_PATH
+    if [ -d "$JNI_PATH/rubicon" ]; then
+        rm -rf "$JNI_PATH/rubicon"
+    fi
+    cp -r "$BUILD_rubicon/jni" rubicon
 
     pop_arm
 }

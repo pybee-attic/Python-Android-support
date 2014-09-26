@@ -55,6 +55,7 @@ JNI_PATH="$BUILD_PATH/jni"
 DIST_PATH="$ROOT_PATH/dist"
 SITEPACKAGES_PATH="$BUILD_PATH/python-install/lib/python2.7/site-packages/"
 HOSTPYTHON="$BUILD_PATH/python-install/bin/python.host"
+PYTHON_INSTALL="$BUILD_PATH/python-install/"
 CYTHON="cython -t"
 
 # Tools
@@ -680,6 +681,14 @@ function run_build() {
 	done
 }
 
+function run_jnibuild() {
+	info "Run jnibuild"
+	push_arm
+	cd $JNI_PATH
+	ndk-build V=1
+	pop_arm
+}
+
 function run_postbuild() {
 	info "Run postbuild"
 	cd $BUILD_PATH
@@ -758,6 +767,7 @@ function run() {
 	run_get_packages
 	run_prebuild
 	run_build
+	run_jnibuild
 	run_postbuild
 	run_pymodules_install
 	run_distribute
