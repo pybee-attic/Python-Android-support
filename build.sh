@@ -348,9 +348,7 @@ function run_prepare() {
 
 	info "Distribution will be located at $DIST_PATH"
 	if [ -e "$DIST_PATH" ]; then
-		error "The distribution $DIST_PATH already exist"
-		error "Press a key to remove it, or Control + C to abort."
-		read
+		info "Removing existing distribution"
 		try rm -rf "$DIST_PATH"
 	fi
 	try mkdir -p "$DIST_PATH"
@@ -531,6 +529,13 @@ function run_get_packages() {
 		fi
 
 		filename=$(basename $url)
+		debug "Initial filename is $filename"
+		if [ "X$filename" == "Xmaster.zip" ]; then
+			debug "Github master file found"
+			filename="$module-$filename"
+		fi
+		debug "Final filename is $filename"
+
 		marker_filename=".mark-$filename"
 		do_download=1
 
@@ -581,6 +586,10 @@ function run_get_packages() {
 			info "Downloading $url"
 			try rm -f $marker_filename
 			try $WGET $filename $url
+			if [ "X$(basename $url)" != "$filename" ]; then
+				debug "Move downloaded file to final location"
+				mv $(basename $url) $filename
+			fi
 			touch $marker_filename
 		else
 			debug "Module $module already downloaded"

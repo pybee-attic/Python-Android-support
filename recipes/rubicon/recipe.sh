@@ -13,7 +13,7 @@ URL_rubicon=https://github.com/pybee/rubicon-java/archive/master.zip
 MD5_rubicon=
 
 # default build path
-BUILD_rubicon=$BUILD_PATH/rubicon/$(get_directory $URL_rubicon)
+BUILD_rubicon=$BUILD_PATH/rubicon/rubicon-master
 
 # default recipe path
 RECIPE_rubicon=$RECIPES_PATH/rubicon
@@ -33,7 +33,8 @@ function build_rubicon() {
     # try $HOSTPYTHON setup.py install
 
     # Build Java JARs
-    # make libs/rubicon.jar
+    make dist/rubicon.jar
+    cp dist/rubicon.jar $LIBS_PATH
 
     # Build JNI component
 
