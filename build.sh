@@ -59,8 +59,6 @@ PYTHON_INSTALL="$BUILD_PATH/python-install/"
 CYTHON="cython -t"
 
 # Tools
-export LIBLINK="$ROOT_PATH/src/tools/liblink"
-export BIGLINK="$ROOT_PATH/src/tools/biglink"
 export PIP=$PIP_NAME
 export VIRTUALENV=$VIRTUALENV_NAME
 
@@ -374,8 +372,8 @@ function run_prepare() {
 	test -d $JNI_PATH || mkdir -p $JNI_PATH
 
 	# Copy JNI build files into JNI path
-	cp $SRC_PATH/Android.mk $JNI_PATH
-	cp $SRC_PATH/Application.mk $JNI_PATH
+	echo "include \$(call all-subdir-makefiles)" > $JNI_PATH/Android.mk
+	echo "APP_MODULES := rubicon" > $JNI_PATH/Application.mk
 
 	# check arm env
 	push_arm
@@ -814,8 +812,6 @@ while getopts ":hCvlfxm:u:d:s" opt; do
 			;;
 		C)
 			COPYLIBS=1
-			LIBLINK=${LIBLINK}-jb
-			BIGLINK=${BIGLINK}-jb
 			;;
 		l)
 			list_modules
