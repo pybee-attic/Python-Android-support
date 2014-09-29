@@ -29,15 +29,11 @@ function build_rubicon() {
     cd $BUILD_rubicon
     push_arm
 
-    # Install Python components
-    # try $HOSTPYTHON setup.py install
-
     # Build Java JARs
     make dist/rubicon.jar
     cp dist/rubicon.jar $LIBS_PATH
 
     # Build JNI component
-
     cd $JNI_PATH
     if [ -d "$JNI_PATH/rubicon" ]; then
         rm -rf "$JNI_PATH/rubicon"

@@ -747,23 +747,35 @@ function run_distribute() {
 	info "Run distribute"
 
 	cd "$DIST_PATH"
+	debug "Create Python directory structure"
+	try mkdir -p python
+	try mkdir -p python/app
+	try mkdir -p python/app_packages
 
 	debug "Copy python distribution"
 	# $HOSTPYTHON -OO -m compileall $BUILD_PATH/python-install
-	try cp -a $BUILD_PATH/python-install python
+	try cp -a "$BUILD_PATH/python-install" python/python
 
 	debug "Remove non-distributed parts of Python install"
-	try rm -rf "$DIST_PATH"/python/bin
-	try rm -rf "$DIST_PATH"/python/share
-	try rm -rf "$DIST_PATH"/python/lib/pkgconfig
-	try rm -rf "$DIST_PATH"/python/lib/libpython2.7.so
+	try rm -rf python/python/bin
+	try rm -rf python/python/share
+	try rm -rf python/python/lib/pkgconfig
+	try rm -rf python/python/lib/libpython2.7.so
 
 	debug "Copy libs"
-	try cp -a $BUILD_PATH/libs .
+	try cp -a "$BUILD_PATH/libs" .
+
+	debug "Install rubicon"
+    # (Naive) Install of Python library
+    try cp -r "$BUILD_rubicon/rubicon" python/app_packages
+
+	debug "Install accessible copy of Rubicon library"
+	try mkdir -p python/rubicon/$ARCH
+    try cp -r libs/$ARCH/librubicon.so python/rubicon/$ARCH/librubicon.so
 
 	debug "Strip libraries"
 	push_arm
-	try find "$DIST_PATH"/python "$DIST_PATH"/libs -iname '*.so' -exec $STRIP {} \;
+	try find "$DIST_PATH/python/python" "$DIST_PATH/libs" -iname '*.so' -exec $STRIP {} \;
 	pop_arm
 }
 
