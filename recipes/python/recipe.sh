@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VERSION_python=2.7.2
-DEPS_python=(hostpython)
+DEPS_python=(hostpython libffi)
 DEPS_OPTIONAL_python=(openssl sqlite3)
 URL_python=http://python.org/ftp/python/$VERSION_python/Python-$VERSION_python.tar.bz2
 MD5_python=ba7b2f11ffdbf195ee0d111b9455a5bd
@@ -31,6 +31,8 @@ function prebuild_python() {
 	try patch -p1 < $RECIPE_python/patches/fix-remove-corefoundation.patch
 	try patch -p1 < $RECIPE_python/patches/fix-dynamic-lookup.patch
 	try patch -p1 < $RECIPE_python/patches/fix-dlfcn.patch
+
+	try cp $RECIPE_python/patches/modules-Setup.local $BUILD_python/Modules/Setup.local
 
 	system=$(uname -s)
 	if [ "X$system" == "XDarwin" ]; then
@@ -78,24 +80,11 @@ function build_python() {
 
 	push_arm
 
-	# openssl activated ?
-	if [ "X$BUILD_openssl" != "X" ]; then
-		debug "Activate flags for openssl / python"
-		export CFLAGS="$CFLAGS -I$BUILD_openssl/include/"
-		export LDFLAGS="$LDFLAGS -L$BUILD_openssl/"
-	fi
-
-	# sqlite3 activated ?
-	if [ "X$BUILD_sqlite3" != "X" ]; then
-		debug "Activate flags for sqlite3"
-		export CFLAGS="$CFLAGS -I$BUILD_sqlite3"
-		export LDFLAGS="$LDFLAGS -L$SRC_PATH/obj/local/$ARCH/"
-	fi
-
-	try ./configure --host=arm-eabi OPT=$OFLAG --prefix="$BUILD_PATH/python-install" --enable-shared --disable-toolbox-glue --disable-framework
-	echo ./configure --host=arm-eabi  OPT=$OFLAG --prefix="$BUILD_PATH/python-install" --enable-shared --disable-toolbox-glue --disable-framework
+	echo ./configure --host=arm-eabi  OPT=$OFLAG --prefix="$BUILD_PATH/python-install" --enable-shared --disable-toolbox-glue --disable-framework LDLAST="-L$BUILD_libffi/lib -lffi"
+	try ./configure --host=arm-eabi OPT=$OFLAG --prefix="$BUILD_PATH/python-install" --enable-shared --disable-toolbox-glue --disable-framework LDLAST="-L$BUILD_libffi/lib -lffi"
 	echo $MAKE HOSTPYTHON=$BUILD_python/hostpython HOSTPGEN=$BUILD_python/hostpgen CROSS_COMPILE_TARGET=yes INSTSONAME=libpython2.7.so
-	cp HOSTPYTHON=$BUILD_python/hostpython python
+	$MAKE HOSTPYTHON=$BUILD_python/hostpython HOSTPGEN=$BUILD_python/hostpgen CROSS_COMPILE_TARGET=yes INSTSONAME=libpython2.7.so
+	# cp HOSTPYTHON=$BUILD_python/hostpython python
 
 	debug 'Install...'
 	$MAKE install HOSTPYTHON=$BUILD_python/hostpython HOSTPGEN=$BUILD_python/hostpgen CROSS_COMPILE_TARGET=yes INSTSONAME=libpython2.7.so
