@@ -41,9 +41,9 @@ Alternatively, to build the frameworks on your own:
 
      More details at http://developer.android.com/tools/sdk/ndk/index.html
 
-#. Add the Android SDK tools to your path
+#. Add the Android SDK `/tools` directory to your path.
 
-#. Launch "android", and make sure you have all the necessary parts of the SDK. You
+#. Launch `android`, and make sure you have all the necessary parts of the SDK. You
    can do this using the graphical interface, or using the command line::
 
     $ android update sdk -u -a -t android-14
@@ -53,7 +53,7 @@ Alternatively, to build the frameworks on your own:
     $ export ANDROIDSDK="/path/to/android/android-sdk-<platform>"
     $ export ANDROIDNDK="/path/to/android/android-ndk-r10b"
 
-    (of course, update these paths to point to the actual SDK and NDK directories)
+   (of course, update these paths to point to the actual SDK and NDK directories)
 
 #. Clone the `Python-Android-support` repository::
 
