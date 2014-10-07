@@ -747,10 +747,6 @@ function run_distribute() {
 	info "Run distribute"
 
 	cd "$DIST_PATH"
-	debug "Create Python directory structure"
-	try mkdir -p app
-	try mkdir -p app_packages
-
 	debug "Copy python distribution"
 	# $HOSTPYTHON -OO -m compileall $BUILD_PATH/python-install
 	try cp -a "$BUILD_PATH/python-install" python
@@ -766,7 +762,7 @@ function run_distribute() {
 
 	debug "Install rubicon"
 
-    # (Naive) Install of Python library
+    # (Naive) Install of Rubicon library into Python site-packages
     try cp -r "$BUILD_rubicon/rubicon" python/lib/python2.7/site-packages
 
 	debug "Fix permissions"
