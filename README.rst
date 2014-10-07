@@ -23,25 +23,25 @@ your Android project.
 
 Alternatively, to build the frameworks on your own:
 
-#. Download Android NDK, SDK
+#. Download the Android SDK and NDK:
 
- * NDK:
+   * SDK:
 
-   - Linux (32 bit host OS): http://dl.google.com/android/ndk/android-ndk32-r10b-linux-x86.tar.bz2
-   - Linux (62 bit host OS): http://dl.google.com/android/ndk/android-ndk32-r10b-linux-x86_64.tar.bz2
-   - OS X (32 bit host OS): http://dl.google.com/android/ndk/android-ndk32-r10b-darwin-x86.tar.bz2
-   - OS X (64 bit host OS): http://dl.google.com/android/ndk/android-ndk32-r10b-darwin-x86_64.tar.bz2
+     - Linux: http://dl.google.com/android/android-sdk_r23.0.2-linux.tgz
+     - OS X: http://dl.google.com/android/android-sdk_r23.0.2-macosx.zip
 
-   More details at http://developer.android.com/tools/sdk/ndk/index.html
+     More details at http://developer.android.com/sdk/index.html
 
- * SDK:
+   * NDK:
 
-    - Linux: http://dl.google.com/android/android-sdk_r23.0.2-linux.tgz
-    - OS X: http://dl.google.com/android/android-sdk_r23.0.2-macosx.zip
+     - Linux (32 bit host OS): http://dl.google.com/android/ndk/android-ndk32-r10b-linux-x86.tar.bz2
+     - Linux (62 bit host OS): http://dl.google.com/android/ndk/android-ndk32-r10b-linux-x86_64.tar.bz2
+     - OS X (32 bit host OS): http://dl.google.com/android/ndk/android-ndk32-r10b-darwin-x86.tar.bz2
+     - OS X (64 bit host OS): http://dl.google.com/android/ndk/android-ndk32-r10b-darwin-x86_64.tar.bz2
 
-    More details at http://developer.android.com/sdk/index.html
+     More details at http://developer.android.com/tools/sdk/ndk/index.html
 
-#. Add the Android SDK tools to your path:
+#. Add the Android SDK tools to your path
 
 #. Launch "android", and make sure you have all the necessary parts of the SDK. You
    can do this using the graphical interface, or using the command line::
