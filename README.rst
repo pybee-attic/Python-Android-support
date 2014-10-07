@@ -13,13 +13,15 @@ and ARM-v7A devices are not currently supported.
 This repository branch builds a packaged version of **Python 2.7.2**, using
 Android API level 14 (Android 4.0 or higher), using Android NDK 10b.
 
-- Website:
-- Forum: https://groups.google.com/forum/?hl=fr#!forum/python-android
-- Mailing list: python-android@googlegroups.com
+Quickstart
+----------
 
+Pre-built versions of the frameworks can be downloaded_, and added to
+your Android project.
 
-Global overview
----------------
+.. _downloaded: https://github.com/pybee/Python-Android-support/releases/download/2.7.2-b1/Python-2.7.2-Android-support.b1.tar.gz
+
+Alternatively, to build the frameworks on your own:
 
 #. Download Android NDK, SDK
 
@@ -51,13 +53,13 @@ Global overview
     $ export ANDROIDSDK="/path/to/android/android-sdk-<platform>"
     $ export ANDROIDNDK="/path/to/android/android-ndk-r10b"
 
-    (Of course correct the paths mentioned in ANDROIDSDK and ANDROIDNDK)
+    (of course, update these paths to point to the actual SDK and NDK directories)
 
-#. Clone Python-Android-support::
+#. Clone the `Python-Android-support` repository::
 
-    $ git clone git://github.com/kivy/Python-Android-support
+    $ git clone git://github.com/pybee/Python-Android-support
 
-#. Build a distribution with OpenSSL module, PIL and Kivy::
+#. Build the distribution::
 
     $ cd Python-Android-support
     $ ./build.sh
