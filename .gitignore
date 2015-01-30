@@ -10,7 +10,7 @@ dist
 *.pyc
 testsuite
 .packages
-
+*.tar.gz
 #ECLIPSE + PYDEV
 .project
 .pydevproject

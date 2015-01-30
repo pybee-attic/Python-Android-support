@@ -199,13 +199,12 @@ function push_arm() {
     fi
 
 	export PATH="$ANDROIDNDK/toolchains/$TOOLCHAIN_PREFIX-$TOOLCHAIN_VERSION/prebuilt/$PYPLATFORM-x86/bin/:$ANDROIDNDK/toolchains/$TOOLCHAIN_PREFIX-$TOOLCHAIN_VERSION/prebuilt/$PYPLATFORM-x86_64/bin/:$ANDROIDNDK:$ANDROIDSDK/tools:$PATH"
-
 	# search compiler in the path, to fail now instead of later.
 	CC=$(which $TOOLCHAIN_PREFIX-gcc)
 	if [ "X$CC" == "X" ]; then
 		error "Unable to find compiler ($TOOLCHAIN_PREFIX-gcc) !!"
 		error "1. Ensure that SDK/NDK paths are correct"
-		error "2. Ensure that you've the Android API $ANDROIDAPI SDK Platform (via android tool)"
+		error "2. Ensure that you've installed the Android API $ANDROIDAPI SDK Platform (via android tool)"
 		exit 1
 	else
 		debug "Compiler found at $CC"
