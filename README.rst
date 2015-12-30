@@ -1,7 +1,7 @@
 Python-Android-support
 ======================
 
-..note:: DEPRECATED
+.. warning:: This project is DEPRECATED
 
   This package is no longer under active development. It is retained for
   historical purposes only.
