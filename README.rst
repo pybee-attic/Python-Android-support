@@ -1,6 +1,25 @@
 Python-Android-support
 ======================
 
+.. note: DEPRECATED
+
+  This package is no longer under active development. It is retained for
+  historical purposes only.
+
+  It takes tha approach of compiling CPython as an embedded library for
+  Android, and then bridging between the Python runtime and the Java virtual
+  machine using JNI. This is a close analog to the approach taken by
+  the `Python-iOS-support`_ library for Apple platforms.
+
+  However, the JNI layer on Android has a number of key restrictions that make
+  this approach non-feasible. It also proved to be quite slow.
+
+  The maintainers abandoned this approach in favour of compiling Python bytecode
+  directly to Java bytecode. For details on this approach, see `VOC`_.
+
+.. _Python-iOS-support: https://github.com/pybee/Python-iOS-support
+.. _VOC: https://github.com/pybee/voc
+
 This is a meta-package for building a version of Python (and supporting libraries)
 that can be embedded into an Android project.
 
